@@ -1,2 +1,2 @@
-export {default as Tittle} from './Tittle';
-export {default as Body} from './Body';
+export {default as LeftSide} from './LeftSide';
+export {default as RightSide} from './RightSide';

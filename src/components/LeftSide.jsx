@@ -1,6 +1,4 @@
-import Search from "./Search";
-
-const Tittle = () => {
+const LeftSide = (props) => {
     return (
         <div className="w-full md:w-1/2 md:pr-32 md:order-1 text-gray-900">
             <div className="max-w-md md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 ">
@@ -13,11 +11,20 @@ const Tittle = () => {
                     <p>to create your own cocktail. </p>
                     <p>Search for your favorite cocktail </p>
                     <p>and know how to make it.</p>
-                    <Search/>
+                    <input type="text" name="name" placeholder="...Search your drink or"
+                           className=" outline-none border-none font-bold text-gray-900"
+                           onChange={(e) => (props.getInput(e))}
+                           dir="rtl"
+                    />
+                </div>
+                <div className="flex flex-wrap justify-between flex-col">
+                    <button>
+                        <p>We recommend you something</p>
+                    </button>
                 </div>
             </div>
         </div>
     )
 };
 
-export default Tittle;
+export default LeftSide;
