@@ -1,30 +1,33 @@
 import {useEffect, useState} from "react";
-
-
 import axios from "axios";
-import './index.css';
+
 import {LeftSide, RightSide} from './components';
+
+import './index.css';
 
 const App = () => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState();
-    const [firstSearch, setFirstSearch] = useState(true);
-
+    const [inputEmpty, setInputEmpty] = useState(true);
 
     const getInput = (e) => {
         setSearch(e.target.value);
-        if (e.target.value.length > 0) {
-            setFirstSearch(false);
+        setInputEmpty(e.target.value.length === 0);
+    };
 
-        }
+    const getRandomDrink = () => {
+        axios.get('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+            .then(res => {
+                    setInputEmpty(false);
+                    setData(res.data.drinks);
+                }
+            )
     };
 
     const getData = async () => {
         const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`);
         setData(response.data.drinks);
     };
-
-
 
     useEffect(() => {
         getData();
@@ -35,13 +38,12 @@ const App = () => {
             <div className="p-6 sm:p-10 md:p-16 flex flex-wrap">
                 <LeftSide
                     getInput={getInput}
-
+                    getRandomDrink={getRandomDrink}
                 />
                 <RightSide
                     data={data}
-                    firstSearch={firstSearch}
+                    inputEmpty={inputEmpty}
                     search={search}
-
                 />
             </div>
         </div>
